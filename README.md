@@ -2,7 +2,7 @@
 
 ## Read This First
 
-Just so we're clear, I will not be polite. If you haven't already started getting rejection emails, they will soon start coming in. There's no polite way to say "unfortunately, we won't be moving on with your application".
+Just so we're clear, I will not be 'nice'. If you haven't already started getting rejection emails, they will soon start coming in. There's no nice way to say "unfortunately, we won't be moving on with your application".
 
 The tech job market is hard because it's supposed to be hard. More often than not, the road will be rough. If you have a few minutes to spare, read [Tai Solarin's "May Your Road Be Rough"](https://megaiconmagazine.com/may-your-road-be-rough-by-tai-solarin/).
 
@@ -64,22 +64,37 @@ Request a code review when you're done, and I'll take a look at my convenience. 
 
 **Full project specification:** [github.com/benx421/tweet-audit](https://github.com/benx421/tweet-audit)
 
-### Project 2: Payment Gateway (Coming Soon)
-
-You'll build a payment gateway for FicMart, an e-commerce platform, managing payment operations between their order system and a banking partner. The gateway must handle the complete payment lifecycle: authorising funds when orders are placed, capturing them when items ship, and processing cancellations or refunds when needed.
-
-You'll integrate with a mock bank service that simulates real-world banking APIs, including random failures and network timeouts.
+### Project 2: [payment-gateway](https://github.com/benx421/payment-gateway)
 
 **What you'll learn:**
 
-- Service orchestration and state machines
-- Distributed transactions
-- Idempotency guarantees
-- Event-driven architecture
-- Handling partial failures in multi-step workflows
-- Financial reconciliation patterns
+- State machine design for payment lifecycles (authorize → capture → refund)
+- Idempotency patterns (duplicate requests don't create duplicate charges)
+- Retry strategies (distinguish transient failures from permanent ones)
+- Distributed transaction coordination (your state vs. the bank's state)
+- Failure recovery (what happens if you crash mid-transaction?)
+- Error mapping (translating external failures to meaningful client responses)
 
-*Full specification and resources will be released when complete.*
+**Core task:** You will build a payment gateway for FicMart, a fictional e-commerce platform. You'll integrate with a mock bank API that randomly fails, adds latency, and enforces strict state rules. The bank will fail, but your gateway must not fail.
+
+**Resources:**
+
+Read these *while* you build.
+
+1. **Idempotency:**
+   - [Implementing Stripe-like Idempotency Keys in Postgres](https://brandur.org/idempotency-keys): Read this when you're designing your idempotency layer. It's the gold standard.
+
+2. **Distributed transactions:**
+   - [Designing Data-Intensive Applications, Chapter 9](https://dataintensive.net/): Read when you're confused about what happens when your gateway and the bank disagree.
+
+3. **Failure handling and resilience:**
+   - [Timeouts, retries, and backoff with jitter](https://aws.amazon.com/builders-library/timeouts-retries-and-backoff-with-jitter/): Read when your retry logic isn't working.
+   - [Release It!](https://pragprog.com/titles/mnee2/release-it-second-edition/): Read when you want to understand why systems fail in production.
+
+4. **State machines and domain modeling:**
+   - [Domain Modeling Made Functional](https://pragprog.com/titles/swdddf/domain-modeling-made-functional/): Read if your payment states are becoming a mess of booleans and flags.
+
+**Full project specification:** [github.com/benx421/payment-gateway](https://github.com/benx421/payment-gateway)
 
 ### Project 3: Traced (Coming Soon)
 
