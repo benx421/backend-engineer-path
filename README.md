@@ -96,7 +96,7 @@ Read these *while* you build.
 
 **Full project specification:** [github.com/benx421/payment-gateway](https://github.com/benx421/payment-gateway)
 
-### Project 3: Traced (Coming Soon)
+### Project 3: [Traced](https://github.com/benx421/traced) (Coming Soon)
 
 You'll build a high-throughput trace ingestion API that receives spans from a configurable mock service and displays them in a provided dashboard. Your system must handle massive concurrent writes, manage race conditions, and provide query capabilities within a configurable rolling time window.
 
