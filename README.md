@@ -96,19 +96,38 @@ Read these *while* you build.
 
 **Full project specification:** [github.com/benx421/payment-gateway](https://github.com/benx421/payment-gateway)
 
-### Project 3: [Traced](https://github.com/benx421/traced) (Coming Soon)
-
-You'll build a high-throughput trace ingestion API that receives spans from a configurable mock service and displays them in a provided dashboard. Your system must handle massive concurrent writes, manage race conditions, and provide query capabilities within a configurable rolling time window.
+### Project 3: [Traced](https://github.com/benx421/traced)
 
 **What you'll learn:**
 
-- High-throughput data ingestion
-- Time-series data storage patterns
-- Handling race conditions under load
-- Partitioning strategies
-- Query optimisation for recent data
+- Concurrent writes: making storage correct under many simultaneous writers
+- Rolling window eviction: continuously removing data that ages out of a time window
+- Out-of-order assembly: storing child spans that arrive before their parent and linking them when the root appears
+- Batched ingest: processing groups of records in a single request
+- API from contract: implementing endpoints to a spec with no existing implementation to reference
 
-*Full specification and resources will be released when complete.*
+**Core task:** Build an HTTP API that accepts span batches from the emitter and serves trace data to the dashboard. The emitter runs multiple concurrent workers that POST traces continuously. Some batches arrive out of order. Your server must assemble them into traces, apply a rolling time window, and serve accurate results. A verifier checks the results.
+
+**Resources:**
+
+Read these *while* you build.
+
+1. **Distributed tracing concepts:**
+   - [Google Dapper paper](https://research.google/pubs/pub36356/): The paper that defined traces, spans, and the parent/child model you're implementing. Read the first three sections.
+   - [OpenTelemetry: Observability Primer](https://opentelemetry.io/docs/concepts/observability-primer/): Explains where traces sit alongside metrics and logs, and why the data model is shaped the way it is.
+
+2. **Storage and rolling windows:**
+   - [Designing Data-Intensive Applications, Chapter 3](https://dataintensive.net/): Read it before you design your store.
+   - [Designing Data-Intensive Applications, Chapter 11](https://dataintensive.net/): Kleppmann on stream processing and windowing. The theory behind rolling windows.
+   - [An alternative approach to rate limiting](https://www.figma.com/blog/an-alternative-approach-to-rate-limiting/): Figma on sliding window algorithms. The eviction problem here is the same one.
+
+3. **Concurrency and HTTP:**
+   - Go: [Concurrency patterns](https://go.dev/blog/pipelines): relevant if you implement background eviction with goroutines.
+   - Go: [net/http](https://pkg.go.dev/net/http): the stdlib is sufficient. Read `ServeMux` and `Handler`.
+   - Python: [FastAPI](https://fastapi.tiangolo.com/) or [Flask](https://flask.palletsprojects.com/).
+   - Java: [Spring Boot REST](https://spring.io/guides/gs/rest-service).
+
+**Full project specification:** [github.com/benx421/traced](https://github.com/benx421/traced)
 
 ## Submitting Work
 
